@@ -4,8 +4,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>bigballs</title>
-  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet"> <!-- Dancing Script Font Link -->
   <style>
+    /* Ensure the page fills the viewport and removes default margins */
     html, body {
       margin: 0;
       padding: 0;
@@ -14,44 +15,48 @@
       overflow: hidden;
     }
 
+    /* Video background styles */
     #bgVideo {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      object-fit: cover;
-      z-index: -1;
+      object-fit: cover;  /* Ensures the video covers the area */
+      z-index: -1;        /* Puts the video behind all other content */
     }
 
+    /* Image style, initial opacity and transition for fading */
     img {
       position: absolute;
       transition: all 0.5s ease;
-      width: 100px;
-      opacity: 0;
+      width: 100px;  /* Initial size of the image */
+      opacity: 0;    /* Initially hidden */
     }
 
+    /* Example content styling (adjust as needed) */
     .content {
       position: relative;
-      z-index: 1;
+      z-index: 1;  /* Content appears above the video */
     }
 
+    /* Custom text styles */
     h1 {
-      color: black;
+      color: black;  /* Changed to black */
       text-align: center;
       padding-top: 20px;
-      font-family: 'Dancing Script', cursive;
-      font-weight: 400;
-      font-size: 2rem;
+      font-family: 'Dancing Script', cursive; /* Using Dancing Script font */
+      font-weight: 400; /* Thin weight */
+      font-size: 2rem; /* Adjusted size */
     }
 
     h2 {
-      color: black;
+      color: black;  /* Color for the smaller sentence */
       text-align: center;
-      font-family: 'Dancing Script', cursive;
-      font-weight: 400;
-      font-size: 1.5rem;
-      margin-top: 10px;
+      font-family: 'Dancing Script', cursive; /* Using Dancing Script font */
+      font-weight: 400; /* Thin weight */
+      font-size: 1.5rem; /* Slightly larger than the previous size */
+      margin-top: 10px;  /* Space between the header and the smaller sentence */
     }
 
     footer {
@@ -63,36 +68,41 @@
     }
 
     footer p {
-      color: black;
-      font-family: 'Dancing Script', cursive;
-      font-weight: 400;
-      font-size: 1.5rem;
+      color: black;  /* Changed to black */
+      font-family: 'Dancing Script', cursive; /* Using Dancing Script font */
+      font-weight: 400; /* Thin weight */
+      font-size: 1.5rem; /* Slightly larger than before */
     }
   </style>
 </head>
 <body>
+  <!-- Video background element -->
   <video id="bgVideo" autoplay loop muted playsinline>
     <source src="my-video.mp4" type="video/mp4">
     Your browser does not support the video tag.
   </video>
 
-  <audio id="bgAudio" loop>
+  <!-- Audio elements (background music and fart sound) -->
+  <audio id="bgAudio" loop preload="auto">
     <source src="my-audio.mp3" type="audio/mp3">
     Your browser does not support the audio tag.
   </audio>
-
-  <audio id="fartAudio">
+  
+  <audio id="fartSound" preload="auto">
     <source src="fart-sound.mp3" type="audio/mp3">
     Your browser does not support the audio tag.
   </audio>
 
+  <!-- Image element -->
   <img src="my-image.jpg" alt="A cool image" id="animatedImage" />
 
+  <!-- Content goes here -->
   <div class="content">
     <h1>Welcome to my ts pmo pmo website bru💔💔</h1>
     <h2>Click for a surprise bru</h2>
   </div>
 
+  <!-- Website Link -->
   <footer>
     <p>Like if you gooned💔💔</p>
   </footer>
@@ -101,41 +111,43 @@
     const img = document.getElementById('animatedImage');
     const video = document.getElementById('bgVideo');
     const audio = document.getElementById('bgAudio');
-    const fartAudio = document.getElementById('fartAudio');  // Fart sound audio element
+    const fartAudio = document.getElementById('fartSound');
 
-    // Function to start audio and fart sound after user interaction
+    // Function to start audio and move image after user interaction
     document.addEventListener('click', function(event) {
-      video.muted = false;  // Unmute video when clicked
+      console.log("Click detected!"); // Check if the click event is firing
 
       // Play the fart sound
-      fartAudio.play(); // Play the fart sound
+      if (fartAudio) {
+        fartAudio.play().catch((error) => {
+          console.error('Error playing fart sound:', error);
+        });
+      }
 
       // Play the background audio
-      audio.play();
+      if (audio) {
+        audio.play().catch((error) => {
+          console.error('Error playing background audio:', error);
+        });
+      }
 
-      // Get the position of the mouse click
+      // Move image and apply other effects
       const x = event.clientX;
       const y = event.clientY;
 
-      // Set the image position to the mouse click
       img.style.left = `${x - img.width / 2}px`;
       img.style.top = `${y - img.height / 2}px`;
 
-      // Reset the image size to original before enlarging
-      img.style.width = '100px'; // Start at 100px for each click
+      img.style.width = '100px'; 
+      img.style.opacity = '1'; 
 
-      // Fade-in the image
-      img.style.opacity = '1'; // Make the image visible
-
-      // Enlarge the image after fading in
       setTimeout(() => {
-        img.style.width = '250px'; // Enlarge to 250px
+        img.style.width = '250px'; 
       }, 10);
 
-      // Fade-out the image after a delay
       setTimeout(() => {
-        img.style.opacity = '0'; // Make the image disappear after a second
-      }, 1000); // Image disappears after 1 second (1000ms)
+        img.style.opacity = '0'; 
+      }, 1000); 
     });
   </script>
 </body>
