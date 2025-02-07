@@ -24,7 +24,6 @@
       height: 100%;
       object-fit: cover;  /* Ensures the video covers the area */
       z-index: -1;        /* Puts the video behind all other content */
-      display: none;      /* Initially hide the video */
     }
 
     /* Image style, initial opacity and transition for fading */
@@ -33,13 +32,12 @@
       transition: all 0.5s ease;
       width: 100px;  /* Initial size of the image */
       opacity: 0;    /* Initially hidden */
-      z-index: 1;    /* Ensure image stays above background */
     }
 
     /* Example content styling (adjust as needed) */
     .content {
       position: relative;
-      z-index: 2;  /* Content appears above the video */
+      z-index: 1;  /* Content appears above the video */
     }
 
     /* Custom text styles */
@@ -66,7 +64,7 @@
       bottom: 10px;
       width: 100%;
       text-align: center;
-      z-index: 2;
+      z-index: 1;
     }
 
     footer p {
@@ -78,8 +76,8 @@
   </style>
 </head>
 <body>
-  <!-- Video background element with audio -->
-  <video id="bgVideo" autoplay loop playsinline>
+  <!-- Video background element -->
+  <video id="bgVideo" autoplay loop muted playsinline>
     <source src="my-video.mp4" type="video/mp4">
     Your browser does not support the video tag.
   </video>
@@ -101,12 +99,15 @@
   <script>
     const img = document.getElementById('animatedImage');
     const video = document.getElementById('bgVideo');
-    
-    // Image click animation
-    document.addEventListener('click', function(e) {
+
+    // Function to start audio after user interaction
+    document.addEventListener('click', function(event) {
+      // Unmute the video when clicked
+      video.muted = false;
+
       // Get the position of the mouse click
-      const x = e.clientX;
-      const y = e.clientY;
+      const x = event.clientX;
+      const y = event.clientY;
 
       // Set the image position to the mouse click
       img.style.left = `${x - img.width / 2}px`;
@@ -127,12 +128,11 @@
       setTimeout(() => {
         img.style.opacity = '0'; // Make the image disappear after a second
       }, 1000); // Image disappears after 1 second (1000ms)
-      
-      // Start the video on click
+
+      // Start the video on click (audio will play automatically since unmuted)
       video.style.display = 'block'; // Show video
       video.play(); // Play the video (with its audio)
     });
   </script>
 </body>
 </html>
-
