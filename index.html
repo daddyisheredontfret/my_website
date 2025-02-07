@@ -1,26 +1,135 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Awesome Website</title>
-    <style>
-        /* Center the image */
-        body {
-            display: flex;
-            justify-content: center; /* Horizontally center the image */
-            align-items: center; /* Vertically center the image */
-            height: 100vh; /* Make the body take the full viewport height */
-            margin: 0; /* Remove default margin */
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Awesome Website</title>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet"> <!-- Dancing Script Font Link -->
+  <style>
+    /* Ensure the page fills the viewport and removes default margins */
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
 
-        img {
-            width: 300px; /* You can adjust the width here */
-        }
-    </style>
+    /* Video background styles */
+    #bgVideo {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;  /* Ensures the video covers the area */
+      z-index: -1;        /* Puts the video behind all other content */
+    }
+
+    /* Image style, initial opacity and transition for fading */
+    img {
+      position: absolute;
+      transition: all 0.5s ease;
+      width: 100px;  /* Initial size of the image */
+      opacity: 0;    /* Initially hidden */
+    }
+
+    /* Example content styling (adjust as needed) */
+    .content {
+      position: relative;
+      z-index: 1;  /* Content appears above the video */
+    }
+
+    /* Custom text styles */
+    h1 {
+      color: black;  /* Changed to black */
+      text-align: center;
+      padding-top: 20px;
+      font-family: 'Dancing Script', cursive; /* Using Dancing Script font */
+      font-weight: 400; /* Thin weight */
+      font-size: 2rem; /* Adjusted size */
+    }
+
+    h2 {
+      color: black;  /* Color for the smaller sentence */
+      text-align: center;
+      font-family: 'Dancing Script', cursive; /* Using Dancing Script font */
+      font-weight: 400; /* Thin weight */
+      font-size: 1.5rem; /* Slightly larger than the previous size */
+      margin-top: 10px;  /* Space between the header and the smaller sentence */
+    }
+
+    footer {
+      position: absolute;
+      bottom: 10px;
+      width: 100%;
+      text-align: center;
+      z-index: 1;
+    }
+
+    footer p {
+      color: black;  /* Changed to black */
+      font-family: 'Dancing Script', cursive; /* Using Dancing Script font */
+      font-weight: 400; /* Thin weight */
+      font-size: 1.5rem; /* Slightly larger than before */
+    }
+  </style>
 </head>
 <body>
-    <!-- Add an image -->
-    <img src="my-image.jpg" alt="A cool image">
+  <!-- Video background element -->
+  <video id="bgVideo" autoplay loop muted playsinline>
+    <source src="my-video.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+
+  <!-- Audio element (if you have separate audio) -->
+  <audio id="bgAudio" autoplay loop>
+    <source src="my-audio.mp3" type="audio/mp3">
+    Your browser does not support the audio tag.
+  </audio>
+
+  <!-- Image element -->
+  <img src="my-image.jpg" alt="A cool image" id="animatedImage" />
+
+  <!-- Content goes here -->
+  <div class="content">
+    <h1>Welcome to my ts pmo pmo website bru💔💔</h1>
+    <h2>Click for a surprise bru</h2>
+  </div>
+
+  <!-- Website Link -->
+  <footer>
+    <p>Like if you gooned💔💔</p>
+  </footer>
+
+  <script>
+    const img = document.getElementById('animatedImage');
+
+    document.addEventListener('click', function(e) {
+      // Get the position of the mouse click
+      const x = e.clientX;
+      const y = e.clientY;
+
+      // Set the image position to the mouse click
+      img.style.left = `${x - img.width / 2}px`;
+      img.style.top = `${y - img.height / 2}px`;
+
+      // Reset the image size to original before enlarging
+      img.style.width = '100px'; // Start at 100px for each click
+
+      // Fade-in the image
+      img.style.opacity = '1'; // Make the image visible
+
+      // Enlarge the image after fading in
+      setTimeout(() => {
+        img.style.width = '250px'; // Enlarge to 250px
+      }, 10);
+
+      // Fade-out the image after a delay
+      setTimeout(() => {
+        img.style.opacity = '0'; // Make the image disappear after a second
+      }, 1000); // Image disappears after 1 second (1000ms)
+    });
+  </script>
 </body>
 </html>
