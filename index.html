@@ -82,19 +82,15 @@
     Your browser does not support the video tag.
   </video>
 
-  <!-- Audio elements (background music and fart sound) -->
-  <audio id="bgAudio" loop preload="auto">
+  <!-- Audio element (if you have separate audio) -->
+  <audio id="bgAudio" loop>
     <source src="my-audio.mp3" type="audio/mp3">
     Your browser does not support the audio tag.
   </audio>
-  
-  <audio id="fartSound" preload="auto">
-    <source src="fart-sound.mp3" type="audio/mp3">
-    Your browser does not support the audio tag.
-  </audio>
 
-  <!-- Image element -->
+  <!-- Image elements -->
   <img src="my-image.jpg" alt="A cool image" id="animatedImage" />
+  <img src="photo2.jpg" alt="Another cool image" id="animatedImage2" style="opacity: 0;" />
 
   <!-- Content goes here -->
   <div class="content">
@@ -108,47 +104,75 @@
   </footer>
 
   <script>
-    const img = document.getElementById('animatedImage');
+    const img1 = document.getElementById('animatedImage');
+    const img2 = document.getElementById('animatedImage2');
     const video = document.getElementById('bgVideo');
     const audio = document.getElementById('bgAudio');
-    const fartAudio = document.getElementById('fartSound');
 
-    // Function to start audio and move image after user interaction
+    let isFirstImage = true;  // Track which image is showing
+
+    // Function to start audio after user interaction
     document.addEventListener('click', function(event) {
-      console.log("Click detected!"); // Check if the click event is firing
-
-      // Play the fart sound
-      if (fartAudio) {
-        fartAudio.play().catch((error) => {
-          console.error('Error playing fart sound:', error);
-        });
+      // Unmute the video when clicked
+      if (video.muted) {
+        video.muted = false;
       }
 
-      // Play the background audio
-      if (audio) {
-        audio.play().catch((error) => {
-          console.error('Error playing background audio:', error);
-        });
+      // Play the audio when clicked
+      audio.play();
+
+      // Toggle between images
+      if (isFirstImage) {
+        // Show the first image
+        img1.style.opacity = '1';
+        img2.style.opacity = '0';
+
+        // Set the image position to the mouse click
+        img1.style.left = `${event.clientX - img1.width / 2}px`;
+        img1.style.top = `${event.clientY - img1.height / 2}px`;
+
+        // Reset the image size to original before enlarging
+        img1.style.width = '100px'; // Start at 100px for each click
+
+        // Enlarge the image after fading in
+        setTimeout(() => {
+          img1.style.width = '250px'; // Enlarge to 250px
+        }, 10);
+
+        // Fade-out the first image after a delay
+        setTimeout(() => {
+          img1.style.opacity = '0'; // Make the first image disappear after 1 second (1000ms)
+        }, 1000);
+
+        // Update flag to show the second image next
+        isFirstImage = false;
+      } else {
+        // Show the second image
+        img2.style.opacity = '1';
+        img1.style.opacity = '0';
+
+        // Set the image position to the mouse click
+        img2.style.left = `${event.clientX - img2.width / 2}px`;
+        img2.style.top = `${event.clientY - img2.height / 2}px`;
+
+        // Reset the image size to original before enlarging
+        img2.style.width = '100px'; // Start at 100px for each click
+
+        // Enlarge the image after fading in
+        setTimeout(() => {
+          img2.style.width = '250px'; // Enlarge to 250px
+        }, 10);
+
+        // Fade-out the second image after a delay
+        setTimeout(() => {
+          img2.style.opacity = '0'; // Make the second image disappear after 1 second (1000ms)
+        }, 1000);
+
+        // Update flag to show the first image next
+        isFirstImage = true;
       }
-
-      // Move image and apply other effects
-      const x = event.clientX;
-      const y = event.clientY;
-
-      img.style.left = `${x - img.width / 2}px`;
-      img.style.top = `${y - img.height / 2}px`;
-
-      img.style.width = '100px'; 
-      img.style.opacity = '1'; 
-
-      setTimeout(() => {
-        img.style.width = '250px'; 
-      }, 10);
-
-      setTimeout(() => {
-        img.style.opacity = '0'; 
-      }, 1000); 
     });
   </script>
 </body>
 </html>
+
