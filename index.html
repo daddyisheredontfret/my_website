@@ -24,6 +24,7 @@
       height: 100%;
       object-fit: cover;  /* Ensures the video covers the area */
       z-index: -1;        /* Puts the video behind all other content */
+      transition: transform 0.1s ease-out;  /* Smooth transition for movement */
     }
 
     /* Image style, initial opacity and transition for fading */
@@ -77,13 +78,13 @@
 </head>
 <body>
   <!-- Video background element -->
-  <video id="bgVideo" autoplay loop muted playsinline>
+  <video id="bgVideo" autoplay loop playsinline>
     <source src="my-video.mp4" type="video/mp4">
     Your browser does not support the video tag.
   </video>
 
   <!-- Audio element (if you have separate audio) -->
-  <audio id="bgAudio" loop>
+  <audio id="bgAudio" autoplay loop>
     <source src="my-audio.mp3" type="audio/mp3">
     Your browser does not support the audio tag.
   </audio>
@@ -105,19 +106,18 @@
   <script>
     const img = document.getElementById('animatedImage');
     const video = document.getElementById('bgVideo');
-    const audio = document.getElementById('bgAudio');
+    
+    // Scroll event listener to move the video with scroll
+    window.addEventListener('scroll', function() {
+      let scrollY = window.scrollY;  // Get the current scroll position
+      video.style.transform = `translateY(${scrollY * 0.2}px)`;  // Adjust video movement speed
+    });
 
-    // Function to start audio after user interaction
-    document.addEventListener('click', function() {
-      // Unmute the video when clicked
-      video.muted = false;
-
-      // Play the audio when clicked
-      audio.play();
-
+    // Image click animation
+    document.addEventListener('click', function(e) {
       // Get the position of the mouse click
-      const x = event.clientX;
-      const y = event.clientY;
+      const x = e.clientX;
+      const y = e.clientY;
 
       // Set the image position to the mouse click
       img.style.left = `${x - img.width / 2}px`;
