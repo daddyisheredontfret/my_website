@@ -24,7 +24,6 @@
       height: 100%;
       object-fit: cover;  /* Ensures the video covers the area */
       z-index: -1;        /* Puts the video behind all other content */
-      transition: transform 0.1s ease-out;  /* Smooth transition for movement */
     }
 
     /* Image style, initial opacity and transition for fading */
@@ -105,14 +104,7 @@
 
   <script>
     const img = document.getElementById('animatedImage');
-    const video = document.getElementById('bgVideo');
     
-    // Scroll event listener to move the video with scroll
-    window.addEventListener('scroll', function() {
-      let scrollY = window.scrollY;  // Get the current scroll position
-      video.style.transform = `translateY(${scrollY * 0.2}px)`;  // Adjust video movement speed
-    });
-
     // Image click animation
     document.addEventListener('click', function(e) {
       // Get the position of the mouse click
