@@ -82,6 +82,18 @@
     Your browser does not support the video tag.
   </video>
 
+  <!-- Audio elements -->
+  <audio id="bgAudio" loop>
+    <source src="my-audio.mp3" type="audio/mp3">
+    Your browser does not support the audio tag.
+  </audio>
+
+  <!-- Fart audio element -->
+  <audio id="fartAudio">
+    <source src="fart-sound.mp3" type="audio/mp3">
+    Your browser does not support the audio tag.
+  </audio>
+
   <!-- Image element -->
   <img src="my-image.jpg" alt="A cool image" id="animatedImage" />
 
@@ -99,11 +111,19 @@
   <script>
     const img = document.getElementById('animatedImage');
     const video = document.getElementById('bgVideo');
+    const audio = document.getElementById('bgAudio');
+    const fartAudio = document.getElementById('fartAudio');
 
     // Function to start audio after user interaction
     document.addEventListener('click', function(event) {
       // Unmute the video when clicked
       video.muted = false;
+
+      // Play the background audio
+      audio.play();
+
+      // Play the fart sound
+      fartAudio.play(); // Play fart sound on click
 
       // Get the position of the mouse click
       const x = event.clientX;
@@ -113,26 +133,4 @@
       img.style.left = `${x - img.width / 2}px`;
       img.style.top = `${y - img.height / 2}px`;
 
-      // Reset the image size to original before enlarging
-      img.style.width = '100px'; // Start at 100px for each click
-
-      // Fade-in the image
-      img.style.opacity = '1'; // Make the image visible
-
-      // Enlarge the image after fading in
-      setTimeout(() => {
-        img.style.width = '250px'; // Enlarge to 250px
-      }, 10);
-
-      // Fade-out the image after a delay
-      setTimeout(() => {
-        img.style.opacity = '0'; // Make the image disappear after a second
-      }, 1000); // Image disappears after 1 second (1000ms)
-
-      // Start the video on click (audio will play automatically since unmuted)
-      video.style.display = 'block'; // Show video
-      video.play(); // Play the video (with its audio)
-    });
-  </script>
-</body>
-</html>
+      // Reset the image si
