@@ -102,9 +102,6 @@
     const img = document.getElementById('animatedImage');
     const video = document.getElementById('bgVideo');
     
-    // Audio element (if you have separate audio for video)
-    const audio = new Audio('my-video.mp4');
-    
     // Image click animation
     document.addEventListener('click', function(e) {
       // Get the position of the mouse click
@@ -131,11 +128,11 @@
         img.style.opacity = '0'; // Make the image disappear after a second
       }, 1000); // Image disappears after 1 second (1000ms)
       
-      // Start the video and audio on click
+      // Start the video on click
       video.style.display = 'block'; // Show video
-      video.play(); // Play the video
-      audio.play(); // Play the audio
+      video.play(); // Play the video (with its audio)
     });
   </script>
 </body>
 </html>
+
