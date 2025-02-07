@@ -83,7 +83,7 @@
   </video>
 
   <!-- Audio element (if you have separate audio) -->
-  <audio id="bgAudio" autoplay loop>
+  <audio id="bgAudio" loop>
     <source src="my-audio.mp3" type="audio/mp3">
     Your browser does not support the audio tag.
   </audio>
@@ -104,11 +104,20 @@
 
   <script>
     const img = document.getElementById('animatedImage');
+    const video = document.getElementById('bgVideo');
+    const audio = document.getElementById('bgAudio');
 
-    document.addEventListener('click', function(e) {
+    // Function to start audio after user interaction
+    document.addEventListener('click', function() {
+      // Unmute the video when clicked
+      video.muted = false;
+
+      // Play the audio when clicked
+      audio.play();
+
       // Get the position of the mouse click
-      const x = e.clientX;
-      const y = e.clientY;
+      const x = event.clientX;
+      const y = event.clientY;
 
       // Set the image position to the mouse click
       img.style.left = `${x - img.width / 2}px`;
