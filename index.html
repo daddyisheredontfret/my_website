@@ -24,6 +24,7 @@
       height: 100%;
       object-fit: cover;  /* Ensures the video covers the area */
       z-index: -1;        /* Puts the video behind all other content */
+      display: none;      /* Initially hide the video */
     }
 
     /* Image style, initial opacity and transition for fading */
@@ -78,7 +79,7 @@
 </head>
 <body>
   <!-- Video background element with audio -->
-  <video id="bgVideo" autoplay loop muted playsinline>
+  <video id="bgVideo" autoplay loop playsinline>
     <source src="my-video.mp4" type="video/mp4">
     Your browser does not support the video tag.
   </video>
@@ -99,6 +100,10 @@
 
   <script>
     const img = document.getElementById('animatedImage');
+    const video = document.getElementById('bgVideo');
+    
+    // Audio element (if you have separate audio for video)
+    const audio = new Audio('my-video.mp4');
     
     // Image click animation
     document.addEventListener('click', function(e) {
@@ -125,8 +130,12 @@
       setTimeout(() => {
         img.style.opacity = '0'; // Make the image disappear after a second
       }, 1000); // Image disappears after 1 second (1000ms)
+      
+      // Start the video and audio on click
+      video.style.display = 'block'; // Show video
+      video.play(); // Play the video
+      audio.play(); // Play the audio
     });
   </script>
 </body>
 </html>
-
