@@ -77,7 +77,7 @@
 </head>
 <body>
   <!-- Video background element -->
-  <video id="bgVideo" autoplay loop playsinline>
+  <video id="bgVideo" autoplay loop muted playsinline>
     <source src="my-video.mp4" type="video/mp4">
     Your browser does not support the video tag.
   </video>
@@ -88,9 +88,15 @@
     Your browser does not support the audio tag.
   </audio>
 
+  <!-- Fart Audio element -->
+  <audio id="fartAudio">
+    <source src="fart-sound.mp3" type="audio/mp3">
+    Your browser does not support the audio tag.
+  </audio>
+
   <!-- Image elements -->
-  <img src="my-image.jpg" alt="A cool image" id="animatedImage" />
-  <img src="photo2.jpg" alt="Another cool image" id="animatedImage2" style="opacity: 0;" />
+  <img src="my-image.jpg" alt="First Image" id="animatedImage1" />
+  <img src="photo2.jpg" alt="Second Image" id="animatedImage2" style="display: none;" />
 
   <!-- Content goes here -->
   <div class="content">
@@ -104,75 +110,61 @@
   </footer>
 
   <script>
-    const img1 = document.getElementById('animatedImage');
+    const img1 = document.getElementById('animatedImage1');
     const img2 = document.getElementById('animatedImage2');
     const video = document.getElementById('bgVideo');
     const audio = document.getElementById('bgAudio');
+    const fartAudio = document.getElementById('fartAudio');
 
-    let isFirstImage = true;  // Track which image is showing
+    let isImage1Visible = true;  // Flag to track which image is visible
 
     // Function to start audio after user interaction
     document.addEventListener('click', function(event) {
       // Unmute the video when clicked
-      if (video.muted) {
-        video.muted = false;
-      }
+      video.muted = false;
 
-      // Play the audio when clicked
+      // Play the background audio
       audio.play();
 
-      // Toggle between images
-      if (isFirstImage) {
-        // Show the first image
-        img1.style.opacity = '1';
-        img2.style.opacity = '0';
+      // Play the fart sound on click
+      fartAudio.play();
 
-        // Set the image position to the mouse click
-        img1.style.left = `${event.clientX - img1.width / 2}px`;
-        img1.style.top = `${event.clientY - img1.height / 2}px`;
+      // Get the position of the mouse click
+      const x = event.clientX;
+      const y = event.clientY;
 
-        // Reset the image size to original before enlarging
-        img1.style.width = '100px'; // Start at 100px for each click
-
-        // Enlarge the image after fading in
-        setTimeout(() => {
-          img1.style.width = '250px'; // Enlarge to 250px
-        }, 10);
-
-        // Fade-out the first image after a delay
-        setTimeout(() => {
-          img1.style.opacity = '0'; // Make the first image disappear after 1 second (1000ms)
-        }, 1000);
-
-        // Update flag to show the second image next
-        isFirstImage = false;
+      // Set the image position to the mouse click
+      if (isImage1Visible) {
+        img1.style.left = `${x - img1.width / 2}px`;
+        img1.style.top = `${y - img1.height / 2}px`;
       } else {
-        // Show the second image
-        img2.style.opacity = '1';
-        img1.style.opacity = '0';
+        img2.style.left = `${x - img2.width / 2}px`;
+        img2.style.top = `${y - img2.height / 2}px`;
+      }
 
-        // Set the image position to the mouse click
-        img2.style.left = `${event.clientX - img2.width / 2}px`;
-        img2.style.top = `${event.clientY - img2.height / 2}px`;
-
-        // Reset the image size to original before enlarging
-        img2.style.width = '100px'; // Start at 100px for each click
-
-        // Enlarge the image after fading in
+      // Toggle images on each click
+      if (isImage1Visible) {
+        img1.style.opacity = '1'; // Make the first image visible
+        img2.style.opacity = '0'; // Hide the second image
         setTimeout(() => {
-          img2.style.width = '250px'; // Enlarge to 250px
+          img1.style.width = '250px'; // Enlarge the first image
         }, 10);
-
-        // Fade-out the second image after a delay
         setTimeout(() => {
-          img2.style.opacity = '0'; // Make the second image disappear after 1 second (1000ms)
+          img1.style.opacity = '0'; // Fade out the first image
         }, 1000);
-
-        // Update flag to show the first image next
-        isFirstImage = true;
+        isImage1Visible = false; // Switch to the second image next
+      } else {
+        img2.style.opacity = '1'; // Make the second image visible
+        img1.style.opacity = '0'; // Hide the first image
+        setTimeout(() => {
+          img2.style.width = '250px'; // Enlarge the second image
+        }, 10);
+        setTimeout(() => {
+          img2.style.opacity = '0'; // Fade out the second image
+        }, 1000);
+        isImage1Visible = true; // Switch back to the first image
       }
     });
   </script>
 </body>
 </html>
-
