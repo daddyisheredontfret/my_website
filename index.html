@@ -88,69 +88,82 @@
     Your browser does not support the audio tag.
   </audio>
 
-  <!-- Fart audio element -->
+  <!-- Fart Audio element -->
   <audio id="fartAudio">
-    <source src="fart.mp3" type="audio/mp3">
+    <source src="fart-sound.mp3" type="audio/mp3">
     Your browser does not support the audio tag.
   </audio>
 
   <!-- Image elements -->
-  <img src="image1.jpg" alt="Image 1" id="image1" />
-  <img src="image2.jpg" alt="Image 2" id="image2" />
+  <img src="my-image.jpg" alt="First Image" id="animatedImage1" />
+  <img src="image2.jpg" alt="Second Image" id="animatedImage2" style="display: none;" />
 
   <!-- Content goes here -->
   <div class="content">
-    <h1>Welcome to my website</h1>
-    <h2>Click for a surprise</h2>
+    <h1>Welcome to my ts pmo pmo website bru💔💔</h1>
+    <h2>Click for a surprise bru</h2>
   </div>
 
   <!-- Website Link -->
   <footer>
-    <p>Like if you gooned!</p>
+    <p>Like if you gooned💔💔</p>
   </footer>
 
   <script>
-    const img1 = document.getElementById('image1');
-    const img2 = document.getElementById('image2');
+    const img1 = document.getElementById('animatedImage1');
+    const img2 = document.getElementById('animatedImage2');
     const video = document.getElementById('bgVideo');
     const audio = document.getElementById('bgAudio');
     const fartAudio = document.getElementById('fartAudio');
 
-    let clickCount = 0;
+    let isImage1Visible = true;  // Flag to track which image is visible
 
-    // Function to play audio and switch images on click
+    // Function to start audio after user interaction
     document.addEventListener('click', function(event) {
-      // Play the background audio
-      audio.play();
-
-      // Play the fart sound
-      fartAudio.play();
-
       // Unmute the video when clicked
       video.muted = false;
 
-      // Toggle between the images
-      clickCount++;
-      if (clickCount % 2 === 0) {
-        img1.style.opacity = '1';
-        img2.style.opacity = '0';
-      } else {
-        img1.style.opacity = '0';
-        img2.style.opacity = '1';
-      }
+      // Play the background audio
+      audio.play();
 
-      // Set the image positions to the mouse click
+      // Play the fart sound on click
+      fartAudio.play();
+
+      // Get the position of the mouse click
       const x = event.clientX;
       const y = event.clientY;
 
-      img1.style.left = `${x - img1.width / 2}px`;
-      img1.style.top = `${y - img1.height / 2}px`;
-      img2.style.left = `${x - img2.width / 2}px`;
-      img2.style.top = `${y - img2.height / 2}px`;
+      // Set the image position to the mouse click
+      if (isImage1Visible) {
+        img1.style.left = `${x - img1.width / 2}px`;
+        img1.style.top = `${y - img1.height / 2}px`;
+      } else {
+        img2.style.left = `${x - img2.width / 2}px`;
+        img2.style.top = `${y - img2.height / 2}px`;
+      }
 
-      // Fade-in the image
-      img1.style.opacity = '1';
-      img2.style.opacity = '1';
+      // Toggle images on each click
+      if (isImage1Visible) {
+        img1.style.opacity = '1'; // Make the first image visible
+        img2.style.opacity = '0'; // Hide the second image
+        setTimeout(() => {
+          img1.style.width = '250px'; // Enlarge the first image
+        }, 10);
+        setTimeout(() => {
+          img1.style.opacity = '0'; // Fade out the first image
+        }, 1000);
+        isImage1Visible = false; // Switch to the second image next
+      } else {
+        img2.style.opacity = '1'; // Make the second image visible
+        img1.style.opacity = '0'; // Hide the first image
+        setTimeout(() => {
+          img2.style.width = '250px'; // Enlarge the second image
+        }, 10);
+        setTimeout(() => {
+          img2.style.opacity = '0'; // Fade out the second image
+        }, 1000);
+        isImage1Visible = true; // Switch back to the first image
+      }
     });
   </script>
 </body>
